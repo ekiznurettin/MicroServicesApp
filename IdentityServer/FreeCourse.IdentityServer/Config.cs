@@ -19,7 +19,7 @@ namespace FreeCourse.IdentityServer
             new ApiResource("resource_discount"){ Scopes={"discount_fullpermission"}},
             new ApiResource("resource_order"){ Scopes={"order_fullpermission"}},
             new ApiResource("resource_payment"){ Scopes={"payment_fullpermission"}},
-            new ApiResource("resource_payment"){ Scopes={"gateway_fullpermission"}},
+            new ApiResource("resource_gateway"){ Scopes={"gateway_fullpermission"}},
             new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
         };
         public static IEnumerable<IdentityResource> IdentityResources => new IdentityResource[]

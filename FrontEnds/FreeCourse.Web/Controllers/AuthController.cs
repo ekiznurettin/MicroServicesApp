@@ -8,6 +8,12 @@ namespace FreeCourse.Web.Controllers
     public class AuthController : Controller
     {
         private readonly IIdentityService _identityService;
+
+        public AuthController(IIdentityService identityService)
+        {
+            _identityService = identityService;
+        }
+
         [HttpGet]
         public IActionResult SignIn()
         {
@@ -24,7 +30,7 @@ namespace FreeCourse.Web.Controllers
             if (!response.IsSuccessful)
             {
                 response.Errors.ForEach(x => {
-                    ModelState.AddModelError(String.Empty, x);
+                    ModelState.AddModelError(string.Empty, x);
                 });
                 return View();
             }
