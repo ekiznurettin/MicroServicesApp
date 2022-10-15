@@ -1,0 +1,24 @@
+﻿@{
+}
+@model CourseViewModel
+<div class="row">
+    <div class="col-md-9">
+        <div class="card">
+            <img src="@Model.StockPictureUrl" class="card-img-top" />
+            <h5 class="card-title">
+                @Model.Name
+            </h5>
+            <span class="badge bg-primary">Kategori : @Model.Category.Name</span>
+            <p class="card-text">@Model.Description</p>
+            
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">@Model.Price</h4>
+                <a asp-controller="Basket" asp-action="AddBasketItem" asp-route-courseId="@Model.Id" class="d-grid">Sepete Ekle</a>
+            </div>
+        </div>
+    </div>
+</div>
