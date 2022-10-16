@@ -1,0 +1,77 @@
+﻿@using FreeCourse.Web.Models.Orders
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model CheckoutInfoInput
+<form asp-controller="Order" asp-action="Checkout" method="post">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Ödeme Bilgileri</h5>
+                    <div class="mb-3">
+                        <label asp-for="Province" class="form-label">İl</label>
+                        <input asp-for="Province" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="District" class="form-label">İlçe</label>
+                        <input asp-for="District" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Street" class="form-label">Cadde</label>
+                        <input asp-for="Street" class="form-control">
+                    </div>
+                          <div class="mb-3">
+                        <label asp-for="ZipCode" class="form-label">Posta Kodu</label>
+                        <input asp-for="ZipCode" class="form-control">
+                    </div>
+                          <div class="mb-3">
+                        <label asp-for="Line" class="form-label">Adres</label>
+                        <input asp-for="Line" class="form-control">
+                    </div>
+                    <h5 class="card-title">Ödeme Bilgileri</h5>
+                    <div class="mb-3">
+                        <label asp-for="CardName" class="form-label">Kart Adı</label>
+                        <input asp-for="CardName" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="CardNumber" class="form-label">Kart Numaradı</label>
+                        <input asp-for="CardNumber" class="form-control">
+                    </div>
+                        <div class="mb-3">
+                        <label asp-for="Expiration" class="form-label">Son Kullanma Tarihi</label>
+                        <input asp-for="Expiration" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="CVV" class="form-label">CVV</label>
+                        <input asp-for="CVV" class="form-control">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Ödeme Özeti</h5>
+                    <table class="table table-stripped">
+                        @foreach (var item in ViewBag.basket.BasketItems as List<BasketItemViewModel>)
+                        {
+                            <tr>
+                                <td>@item.CourseName</td>
+                                <td>@item.Price</td>
+                            </tr>
+                        }
+                        <tr>
+                            <td>@(ViewBag.basket.HasDiscount?"İndirimli Fiyat":"Toplam Fiyat")</td>
+                            <td>@ViewBag.basket.TotalPrice TL</td>
+                        </tr>
+                    </table>
+                    <button type="submit" class="btn btn-success">Ödemeyi Tamamla</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

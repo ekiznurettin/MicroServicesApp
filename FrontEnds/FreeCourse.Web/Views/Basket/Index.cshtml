@@ -53,7 +53,7 @@
                             </div>
 
                         }
-                    
+
                         <div class="input-group mb-3">
                             <input class="form-control" type="text" name="DiscountApplyInput.Code" />
 
@@ -70,6 +70,12 @@
                             <div class="text-danger">  @TempData["discountError"]</div>
                         }
                     </form>
+                    <a class="btn btn-success" asp-controller="Order" asp-action="Checkout">Ödeme Bilgileri</a>
+                    <a class="btn btn-success" asp-controller="Home" asp-action="Index">Alışverişe devam et</a>
+                }
+                else
+                {
+                    <div class="alert alert-info">Sepet Boş</div>
                 }
             </div>
         </div>
