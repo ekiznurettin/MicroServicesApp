@@ -23,7 +23,7 @@ namespace FreeCourse.Services.Order.Domain.OrderAggregate
             _orderItems = new List<OrderItem>();
         }
 
-        public void AddOrderItem(int productId, string productName, decimal price, string pictureUrl, int quaninty)
+        public void AddOrderItem(string productId, string productName, decimal price, string pictureUrl, int quaninty)
         {
             var existProduct = _orderItems.Any(x => x.ProductId == productId);
             if (!existProduct)

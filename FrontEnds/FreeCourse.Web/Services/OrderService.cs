@@ -79,9 +79,51 @@ namespace FreeCourse.Web.Services
             return response.Data;
         }
 
-        public Task SuspendOrder(CheckoutInfoInput checkoutInput)
+        public async Task<OrderSuspendViewModel> SuspendOrder(CheckoutInfoInput checkoutInput)
         {
-            throw new NotImplementedException();
+            var basket = await _basketService.Get();
+            var orderCreateInput = new OrderCreateInput()
+            {
+                BuyerId = _sharedIdentityService.GetUserId,
+                Address = new AddressCreateInput
+                {
+                    Province = checkoutInput.Province,
+                    District = checkoutInput.District,
+                    Line = checkoutInput.Line,
+                    Street = checkoutInput.Street,
+                    ZipCode = checkoutInput.ZipCode
+                }
+            };
+            basket.BasketItems.ForEach(x =>
+            {
+                var orderItem = new OrderItemCreateInput
+                {
+                    ProductId = x.CourseId,
+                    Price = x.GetCurrentPrice,
+                    PictureUrl = "",
+                    ProductName = x.CourseName,
+                    Quaninty = x.Quantity
+                };
+                orderCreateInput.OrderItems.Add(orderItem);
+            });
+            
+            var payment = new PaymentInfoInput()
+            {
+                CardName = checkoutInput.CardName,
+                CardNumber = checkoutInput.CardNumber,
+                CVV = checkoutInput.CVV,
+                Expiration = checkoutInput.Expiration,
+                TotalPrice = basket.TotalPrice,
+                Order = orderCreateInput
+            };
+
+            var responsePayment = await _paymentService.ReceivePayment(payment);
+            if (!responsePayment)
+            {
+                return new OrderSuspendViewModel() { Error = "Ödeme Alınamadı", IsSuccessful = false };
+            }
+            await _basketService.Delete();
+            return new OrderSuspendViewModel() { IsSuccessful = true };
         }
     }
 }

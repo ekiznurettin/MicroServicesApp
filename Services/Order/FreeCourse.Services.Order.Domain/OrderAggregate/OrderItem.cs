@@ -9,7 +9,7 @@ namespace FreeCourse.Services.Order.Domain.OrderAggregate
 {
     public class OrderItem:Entity
     {
-        public int ProductId { get; private set; }
+        public string ProductId { get; private set; }
         public string ProductName{ get; private set; }
         public string PictureUrl{ get; private set; }
         public decimal Price{ get; private set; }
@@ -18,7 +18,7 @@ namespace FreeCourse.Services.Order.Domain.OrderAggregate
         {
 
         }
-        public OrderItem(int productId, string productName, string pictureUrl, decimal price, int quaninty)
+        public OrderItem(string productId, string productName, string pictureUrl, decimal price, int quaninty)
         {
             ProductId = productId;
             ProductName = productName;
